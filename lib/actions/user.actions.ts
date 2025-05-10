@@ -3,8 +3,7 @@ import { signInFormSchema } from "../validators"
 import {signIn, signOut} from '@/auth'
 import { isRedirectError } from "next/dist/client/components/redirect-error"
 
-// sign in user with credentials
-
+// Sign in the user with credentials
 export async function signInWithCredentials(
     prevState: unknown,
     formData: FormData
