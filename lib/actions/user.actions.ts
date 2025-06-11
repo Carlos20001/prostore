@@ -4,6 +4,7 @@ import {signIn, signOut} from '@/auth'
 import { isRedirectError } from "next/dist/client/components/redirect-error"
 import { hashSync } from "bcrypt-ts-edge"
 import {prisma} from "@/db/prisma"
+import  {formatError} from "@/lib/utils"
 
 // Sign in the user with credentials
 export async function signInWithCredentials(
@@ -11,7 +12,7 @@ export async function signInWithCredentials(
   formData: FormData
 ) {
   try {
-    const user = signInFormSchema.safeParse({
+    const user = signInFormSchema.parse({
       email: formData.get("email"),
       password: formData.get("password"),
     });
@@ -34,11 +35,11 @@ export async function signOutUser() {
 export async function signUpUser(prevState: unknown, formData: FormData) {
   try {
     const user = signUpFormSchema.parse({
-      name: formData.get("name"),
-      email: formData.get("email"),
-      password: formData.get("password"),
-      confirmPassword: formData.get("confirmPassword"),
-    })
+      name: formData.get('name'),
+      email: formData.get('email'),
+      password: formData.get('password'),
+      confirmPassword: formData.get('confirmPassword'),
+    });
 
     const plainPassword = user.password;
 
@@ -48,7 +49,7 @@ export async function signUpUser(prevState: unknown, formData: FormData) {
       data: {
         name: user.name,
         email: user.email,
-        password: user.password,
+        password: user.password, 
       },
     })
 
@@ -62,6 +63,6 @@ export async function signUpUser(prevState: unknown, formData: FormData) {
      if (isRedirectError(error)) {
       throw error;
     }
-    return { success: false, message: 'User already exists' };
+    return { success: false, message: formatError(error) };
   }
 }

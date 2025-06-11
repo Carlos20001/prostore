@@ -13,7 +13,7 @@ import { useSearchParams } from 'next/navigation';
 const SignUpForm = () => {
   const [data, action] = useActionState(signUpUser, {
     success: false,
-    message: '',
+    message: 'not right',
   });
 
   const searchParams = useSearchParams();
@@ -61,19 +61,19 @@ const SignUpForm = () => {
             id='password'
             name='password'
             type='password'
-            required
+            required={true}
             autoComplete='password'
             defaultValue={signUpDefaultValues.password}
           />
         </div>
         <div>
-          <Label htmlFor='confirm password'>Confirm password</Label>
+          <Label htmlFor='confirmPassword'>Confirm password</Label>
           <Input
-            id='confirm password'
-            name='confirm password'
+            id='confirmPassword'
+            name='confirmPassword'
             type='password'
-            required
-            autoComplete='confirm password'
+            required={true}
+            autoComplete='confirPassword'
             defaultValue={signUpDefaultValues.confirmPassword}
           />
         </div>
