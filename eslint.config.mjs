@@ -10,7 +10,6 @@ const compat = new FlatCompat({
 });
  
 const eslintConfig = [
-  // <--------------- ignoring extra files and folders
   {
     ignores: [
       "node_modules/**",
@@ -20,9 +19,14 @@ const eslintConfig = [
       "build/**",
       "lib/generated/**", // <--- this miserable new-way folder of Prisma Client :-)
     ],
-  }, // <-----------------
+  },
   ...compat.extends("next/core-web-vitals", "next/typescript"),
+  {
+    rules: {
+      "@typescript-eslint/no-explicit-any": "off",
+    },
+  },
 ];
- 
+
  
 export default eslintConfig; 
