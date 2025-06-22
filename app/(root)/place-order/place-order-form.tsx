@@ -12,9 +12,10 @@ const PlaceOrderForm = () => {
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
-    const res = await createOrder();
+    const res = await createOrder()
+    console.log(res)
 
-    if (res && res.redirectTo) {
+    if (res.redirectTo) {
       router.push(res.redirectTo);
     }
   };
