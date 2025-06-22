@@ -8714,9 +8714,9 @@ export namespace Prisma {
     taxPrice: Decimal
     totalPrice: Decimal
     isPaid: boolean
-    paidAt: Date
+    paidAt: Date | null
     isDelivered: boolean
-    deliveredAt: Date
+    deliveredAt: Date | null
     createdAt: Date
     _count: OrderCountAggregateOutputType | null
     _avg: OrderAvgAggregateOutputType | null
@@ -8842,9 +8842,9 @@ export namespace Prisma {
       taxPrice: Prisma.Decimal
       totalPrice: Prisma.Decimal
       isPaid: boolean
-      paidAt: Date
+      paidAt: Date | null
       isDelivered: boolean
-      deliveredAt: Date
+      deliveredAt: Date | null
       createdAt: Date
     }, ExtArgs["result"]["order"]>
     composites: {}
@@ -11628,9 +11628,9 @@ export namespace Prisma {
     taxPrice?: DecimalFilter<"Order"> | Decimal | DecimalJsLike | number | string
     totalPrice?: DecimalFilter<"Order"> | Decimal | DecimalJsLike | number | string
     isPaid?: BoolFilter<"Order"> | boolean
-    paidAt?: DateTimeFilter<"Order"> | Date | string
+    paidAt?: DateTimeNullableFilter<"Order"> | Date | string | null
     isDelivered?: BoolFilter<"Order"> | boolean
-    deliveredAt?: DateTimeFilter<"Order"> | Date | string
+    deliveredAt?: DateTimeNullableFilter<"Order"> | Date | string | null
     createdAt?: DateTimeFilter<"Order"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     orderItems?: OrderItemListRelationFilter
@@ -11647,9 +11647,9 @@ export namespace Prisma {
     taxPrice?: SortOrder
     totalPrice?: SortOrder
     isPaid?: SortOrder
-    paidAt?: SortOrder
+    paidAt?: SortOrderInput | SortOrder
     isDelivered?: SortOrder
-    deliveredAt?: SortOrder
+    deliveredAt?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     user?: UserOrderByWithRelationInput
     orderItems?: OrderItemOrderByRelationAggregateInput
@@ -11669,9 +11669,9 @@ export namespace Prisma {
     taxPrice?: DecimalFilter<"Order"> | Decimal | DecimalJsLike | number | string
     totalPrice?: DecimalFilter<"Order"> | Decimal | DecimalJsLike | number | string
     isPaid?: BoolFilter<"Order"> | boolean
-    paidAt?: DateTimeFilter<"Order"> | Date | string
+    paidAt?: DateTimeNullableFilter<"Order"> | Date | string | null
     isDelivered?: BoolFilter<"Order"> | boolean
-    deliveredAt?: DateTimeFilter<"Order"> | Date | string
+    deliveredAt?: DateTimeNullableFilter<"Order"> | Date | string | null
     createdAt?: DateTimeFilter<"Order"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     orderItems?: OrderItemListRelationFilter
@@ -11688,9 +11688,9 @@ export namespace Prisma {
     taxPrice?: SortOrder
     totalPrice?: SortOrder
     isPaid?: SortOrder
-    paidAt?: SortOrder
+    paidAt?: SortOrderInput | SortOrder
     isDelivered?: SortOrder
-    deliveredAt?: SortOrder
+    deliveredAt?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     _count?: OrderCountOrderByAggregateInput
     _avg?: OrderAvgOrderByAggregateInput
@@ -11713,9 +11713,9 @@ export namespace Prisma {
     taxPrice?: DecimalWithAggregatesFilter<"Order"> | Decimal | DecimalJsLike | number | string
     totalPrice?: DecimalWithAggregatesFilter<"Order"> | Decimal | DecimalJsLike | number | string
     isPaid?: BoolWithAggregatesFilter<"Order"> | boolean
-    paidAt?: DateTimeWithAggregatesFilter<"Order"> | Date | string
+    paidAt?: DateTimeNullableWithAggregatesFilter<"Order"> | Date | string | null
     isDelivered?: BoolWithAggregatesFilter<"Order"> | boolean
-    deliveredAt?: DateTimeWithAggregatesFilter<"Order"> | Date | string
+    deliveredAt?: DateTimeNullableWithAggregatesFilter<"Order"> | Date | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Order"> | Date | string
   }
 
@@ -12328,9 +12328,9 @@ export namespace Prisma {
     taxPrice: Decimal | DecimalJsLike | number | string
     totalPrice: Decimal | DecimalJsLike | number | string
     isPaid?: boolean
-    paidAt: Date | string
+    paidAt?: Date | string | null
     isDelivered?: boolean
-    deliveredAt: Date | string
+    deliveredAt?: Date | string | null
     createdAt?: Date | string
     user: UserCreateNestedOneWithoutOrdersInput
     orderItems?: OrderItemCreateNestedManyWithoutOrderInput
@@ -12347,9 +12347,9 @@ export namespace Prisma {
     taxPrice: Decimal | DecimalJsLike | number | string
     totalPrice: Decimal | DecimalJsLike | number | string
     isPaid?: boolean
-    paidAt: Date | string
+    paidAt?: Date | string | null
     isDelivered?: boolean
-    deliveredAt: Date | string
+    deliveredAt?: Date | string | null
     createdAt?: Date | string
     orderItems?: OrderItemUncheckedCreateNestedManyWithoutOrderInput
   }
@@ -12364,9 +12364,9 @@ export namespace Prisma {
     taxPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     isPaid?: BoolFieldUpdateOperationsInput | boolean
-    paidAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isDelivered?: BoolFieldUpdateOperationsInput | boolean
-    deliveredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deliveredAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutOrdersNestedInput
     orderItems?: OrderItemUpdateManyWithoutOrderNestedInput
@@ -12383,9 +12383,9 @@ export namespace Prisma {
     taxPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     isPaid?: BoolFieldUpdateOperationsInput | boolean
-    paidAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isDelivered?: BoolFieldUpdateOperationsInput | boolean
-    deliveredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deliveredAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     orderItems?: OrderItemUncheckedUpdateManyWithoutOrderNestedInput
   }
@@ -12401,9 +12401,9 @@ export namespace Prisma {
     taxPrice: Decimal | DecimalJsLike | number | string
     totalPrice: Decimal | DecimalJsLike | number | string
     isPaid?: boolean
-    paidAt: Date | string
+    paidAt?: Date | string | null
     isDelivered?: boolean
-    deliveredAt: Date | string
+    deliveredAt?: Date | string | null
     createdAt?: Date | string
   }
 
@@ -12417,9 +12417,9 @@ export namespace Prisma {
     taxPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     isPaid?: BoolFieldUpdateOperationsInput | boolean
-    paidAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isDelivered?: BoolFieldUpdateOperationsInput | boolean
-    deliveredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deliveredAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -12434,9 +12434,9 @@ export namespace Prisma {
     taxPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     isPaid?: BoolFieldUpdateOperationsInput | boolean
-    paidAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isDelivered?: BoolFieldUpdateOperationsInput | boolean
-    deliveredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deliveredAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -14219,9 +14219,9 @@ export namespace Prisma {
     taxPrice: Decimal | DecimalJsLike | number | string
     totalPrice: Decimal | DecimalJsLike | number | string
     isPaid?: boolean
-    paidAt: Date | string
+    paidAt?: Date | string | null
     isDelivered?: boolean
-    deliveredAt: Date | string
+    deliveredAt?: Date | string | null
     createdAt?: Date | string
     orderItems?: OrderItemCreateNestedManyWithoutOrderInput
   }
@@ -14236,9 +14236,9 @@ export namespace Prisma {
     taxPrice: Decimal | DecimalJsLike | number | string
     totalPrice: Decimal | DecimalJsLike | number | string
     isPaid?: boolean
-    paidAt: Date | string
+    paidAt?: Date | string | null
     isDelivered?: boolean
-    deliveredAt: Date | string
+    deliveredAt?: Date | string | null
     createdAt?: Date | string
     orderItems?: OrderItemUncheckedCreateNestedManyWithoutOrderInput
   }
@@ -14376,9 +14376,9 @@ export namespace Prisma {
     taxPrice?: DecimalFilter<"Order"> | Decimal | DecimalJsLike | number | string
     totalPrice?: DecimalFilter<"Order"> | Decimal | DecimalJsLike | number | string
     isPaid?: BoolFilter<"Order"> | boolean
-    paidAt?: DateTimeFilter<"Order"> | Date | string
+    paidAt?: DateTimeNullableFilter<"Order"> | Date | string | null
     isDelivered?: BoolFilter<"Order"> | boolean
-    deliveredAt?: DateTimeFilter<"Order"> | Date | string
+    deliveredAt?: DateTimeNullableFilter<"Order"> | Date | string | null
     createdAt?: DateTimeFilter<"Order"> | Date | string
   }
 
@@ -14772,9 +14772,9 @@ export namespace Prisma {
     taxPrice: Decimal | DecimalJsLike | number | string
     totalPrice: Decimal | DecimalJsLike | number | string
     isPaid?: boolean
-    paidAt: Date | string
+    paidAt?: Date | string | null
     isDelivered?: boolean
-    deliveredAt: Date | string
+    deliveredAt?: Date | string | null
     createdAt?: Date | string
     user: UserCreateNestedOneWithoutOrdersInput
   }
@@ -14790,9 +14790,9 @@ export namespace Prisma {
     taxPrice: Decimal | DecimalJsLike | number | string
     totalPrice: Decimal | DecimalJsLike | number | string
     isPaid?: boolean
-    paidAt: Date | string
+    paidAt?: Date | string | null
     isDelivered?: boolean
-    deliveredAt: Date | string
+    deliveredAt?: Date | string | null
     createdAt?: Date | string
   }
 
@@ -14861,9 +14861,9 @@ export namespace Prisma {
     taxPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     isPaid?: BoolFieldUpdateOperationsInput | boolean
-    paidAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isDelivered?: BoolFieldUpdateOperationsInput | boolean
-    deliveredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deliveredAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutOrdersNestedInput
   }
@@ -14879,9 +14879,9 @@ export namespace Prisma {
     taxPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     isPaid?: BoolFieldUpdateOperationsInput | boolean
-    paidAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isDelivered?: BoolFieldUpdateOperationsInput | boolean
-    deliveredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deliveredAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -15009,9 +15009,9 @@ export namespace Prisma {
     taxPrice: Decimal | DecimalJsLike | number | string
     totalPrice: Decimal | DecimalJsLike | number | string
     isPaid?: boolean
-    paidAt: Date | string
+    paidAt?: Date | string | null
     isDelivered?: boolean
-    deliveredAt: Date | string
+    deliveredAt?: Date | string | null
     createdAt?: Date | string
   }
 
@@ -15124,9 +15124,9 @@ export namespace Prisma {
     taxPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     isPaid?: BoolFieldUpdateOperationsInput | boolean
-    paidAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isDelivered?: BoolFieldUpdateOperationsInput | boolean
-    deliveredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deliveredAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     orderItems?: OrderItemUpdateManyWithoutOrderNestedInput
   }
@@ -15141,9 +15141,9 @@ export namespace Prisma {
     taxPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     isPaid?: BoolFieldUpdateOperationsInput | boolean
-    paidAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isDelivered?: BoolFieldUpdateOperationsInput | boolean
-    deliveredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deliveredAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     orderItems?: OrderItemUncheckedUpdateManyWithoutOrderNestedInput
   }
@@ -15158,9 +15158,9 @@ export namespace Prisma {
     taxPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     isPaid?: BoolFieldUpdateOperationsInput | boolean
-    paidAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isDelivered?: BoolFieldUpdateOperationsInput | boolean
-    deliveredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deliveredAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
