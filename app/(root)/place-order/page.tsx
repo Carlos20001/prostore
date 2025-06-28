@@ -102,7 +102,7 @@ const PlaceOrderPage = async () => {
                     </CardContent>
                 </Card>
             </div>
-            <div>
+       <div>
           <Card>
             <CardContent className='p-4 gap-4 space-y-4'>
               <div className='flex justify-between'>
