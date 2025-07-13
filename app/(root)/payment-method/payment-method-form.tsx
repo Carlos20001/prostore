@@ -6,7 +6,7 @@ import { paymentMethodSchema } from '@/lib/validators';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { DEFAULT_PAYMENT_METHOD, PAYMENT_METHODS } from '@/lib/constants';
+import {  PAYMENT_METHODS } from '@/lib/constants';
 import {
   Form,
   FormControl,
@@ -31,7 +31,7 @@ const PaymentMethodForm = ({
   const form = useForm<z.infer<typeof paymentMethodSchema>>({
     resolver: zodResolver(paymentMethodSchema),
     defaultValues: {
-      type: preferredPaymentMethod || DEFAULT_PAYMENT_METHOD,
+      type: preferredPaymentMethod ?? undefined,
     },
   });
 

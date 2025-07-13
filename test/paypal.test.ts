@@ -8,7 +8,7 @@ test('generates token from paypal', async () => {
   expect(tokenResponse.length).toBeGreaterThan(0);
 });
 
-//  Test to create a paypal order
+// Test to create a paypal order
 test('creates a paypal order', async () => {
   const token = await generateAccessToken();
   const price = 10.0;

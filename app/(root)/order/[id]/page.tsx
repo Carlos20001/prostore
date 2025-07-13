@@ -9,6 +9,7 @@ export const metadata: Metadata = {
     title: 'Order Details'
 }
 
+
 const OrderDetailsPage = async(props: {params: Promise<{id: string}>}) => {
 
     const { id } = await props.params;
@@ -20,8 +21,9 @@ const OrderDetailsPage = async(props: {params: Promise<{id: string}>}) => {
         ...order,
         shippingAddress: order.shippingAddress as ShippingAddress
     }} 
-    paypalClientId={process.env.PAYPAL_CLIENT_ID || 'sb'}
-    /> ;
+      paypalClientId={process.env.PAYPAL_CLIENT_ID || 'sb'}
+      /> ;
+      
 }
  
 export default OrderDetailsPage;

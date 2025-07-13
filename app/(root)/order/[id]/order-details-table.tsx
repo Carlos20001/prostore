@@ -63,7 +63,8 @@ const OrderDetailsTable = ({order, paypalClientId} : {order: Order, paypalClient
     }
   };
 
-  console.log(order.paymentMethod)
+  console.log(paypalClientId);
+  
 
     return ( <>
       <h1 className='py-4 text-2xl'>Order {formatId(id)}</h1>
@@ -160,7 +161,7 @@ const OrderDetailsTable = ({order, paypalClientId} : {order: Order, paypalClient
                 <div>{formatCurrency(totalPrice)}</div>
               </div>
 
-               {!isPaid && paymentMethod === "PayPal" && (
+               {!isPaid && paymentMethod && (
                 <div>
                   <PayPalScriptProvider options={{ clientId: paypalClientId }}>
                     <PrintLoadingState />
