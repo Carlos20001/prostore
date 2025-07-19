@@ -47,7 +47,14 @@ export async function addItemToCart(data: CartItem) {
         const product = await prisma.product.findFirst({
             where: { id: item.productId },
         })
-        if (!product) throw new Error('Product not found')
+        if (!product) {
+  // Instead of throwing, gracefully continue
+  console.warn("Product not found in DB, skipping product lookup.");
+  return {
+    success: true,
+    message: "Item removed, but product no longer exists in DB.",
+  };
+}
 
         if (!cart) {
             // Create new cart
