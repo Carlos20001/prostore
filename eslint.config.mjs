@@ -1,34 +1,15 @@
-import { dirname } from "path";
-import { fileURLToPath } from "url";
-import { FlatCompat } from "@eslint/eslintrc";
- 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
- 
-const compat = new FlatCompat({
-  baseDirectory: import.meta.dirname || __dirname,
-});
- 
-const eslintConfig = [
-  {
-    ignores: [
-      "node_modules/**",
-      ".next/**",
-      "dist/**",
-      "out/**",
-      "build/**",
-      "lib/generated/**", // <--- this miserable new-way folder of Prisma Client :-)
-    ],
-    extends: ['next'],
+module.exports = {
+  root: true,
+  extends: [
+    'next',
+    'next/core-web-vitals',
+    'eslint:recommended',
+    'plugin:@typescript-eslint/recommended',
+    'prettier',
+  ],
+  parser: '@typescript-eslint/parser',
+  plugins: ['@typescript-eslint'],
+  rules: {
+    // your custom rules here
   },
-  ...compat.extends("next/core-web-vitals", "next/typescript"),
-  {
-    rules: {
-       'react/no-unescaped-entities': 'off',
-      '@next/next/no-page-custom-font': 'off',
-    },
-  },
-];
-
- 
-export default eslintConfig; 
+};
