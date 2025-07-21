@@ -10,23 +10,26 @@ export const metadata: Metadata = {
   title: 'Order Details',
 };
 
-const OrderDetailsPage = async (props: {
-  params: Promise<{
+const OrderDetailsPage = async ({
+  params,
+}: {
+  params: {
     id: string;
-  }>;
+  };
 }) => {
-  const { id } = await props.params;
+  const { id } = params;
 
   const order = await getOrderById(id);
   if (!order) notFound();
 
   const session = await auth();
 
-  // Redirect the user if they don't own the order
-  if (order.userId !== session?.user.id && session?.user.role !== 'admin') {
-    return redirect('/unauthorized');
-  }
+    console.log(order)
 
+  // If user is not the owner or not admin, redirect
+  if (order.userId !== session?.user?.id && session?.user?.role !== 'admin') {
+    redirect('/unauthorized');
+  }
 
   return (
     <OrderDetailsTable
