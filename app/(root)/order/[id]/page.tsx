@@ -39,13 +39,12 @@ const OrderPage = async ({ params }: Props) => {
 
 	return (
 		<OrderDetailsTable
-			order={{
-				...order,
-				shippingAddress: order.shippingAddress as ShippingAddress,
-			}}
-			paypalClientId={process.env.PAYPAL_CLIENT_ID || 'sb'}
-			isAdmin={session?.user?.role === 'admin' || false}
-		/>
+      order={{
+        ...order,
+        shippingAddress: order.shippingAddress as ShippingAddress,
+      }}
+      paypalClientId={process.env.PAYPAL_CLIENT_ID || 'sb'}
+      isAdmin={session?.user?.role === 'admin' || false} stripeClientSecret={null}		/>
 	)
 }
 export default OrderPage

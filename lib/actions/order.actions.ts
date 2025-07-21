@@ -1,18 +1,17 @@
 'use server'
 
 import { isRedirectError } from 'next/dist/client/components/redirect-error'
-import {  formatError } from '../utils'
+import { convertToPlainObject, formatError } from '../utils'
 import { auth } from '@/auth'
 import { getMyCart } from './cart.action'
 import { getUserById } from './user.actions'
 import { insertOrderSchema } from '../validators'
 import { prisma } from '@/db/prisma'
-import { CartItem, PaymentResult } from '@/types'
+import { CartItem, PaymentResult, ShippingAddress } from '@/types'
 import { paypal } from '../paypal'
 import { revalidatePath } from 'next/cache'
 import { PAGE_SIZE } from '../constants'
-import { Prisma } from '@/lib/generated/prisma';
-
+import { Prisma } from '@/lib/generated/prisma'
 
 // Create order and create the order items
 export async function createOrder() {
@@ -85,31 +84,15 @@ export async function createOrder() {
 
 // Get order by id
 export async function getOrderById(orderId: string) {
-  try {
-    const order = await prisma.order.findUnique({
-      where: { id: orderId },
-      include: {
-        user: {
-          select: {
-            name: true,
-            email: true,
-          },
-        },
-        orderitems: true,
-      },
-    });
+	const order = await prisma.order.findUnique({
+		where: { id: orderId },
+		include: {
+			orderitems: true,
+			user: { select: { name: true, email: true } },
+		},
+	})
 
-    if (!order) return null;
-
-    return {
-      ...order,
-      shippingAddress: order.shippingAddress as any,
-      paymentResult: order.paymentResult as any,
-    };
-  } catch (error) {
-    console.error('getOrderById error:', formatError(error));
-    return null;
-  }
+	return convertToPlainObject(order)
 }
 
 // Create new paypal order
