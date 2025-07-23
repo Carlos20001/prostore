@@ -9,7 +9,7 @@ import { ShippingAddress } from "@/types"
 import {z} from "zod"
 import { PAGE_SIZE } from "../constants"
 import { revalidatePath } from "next/cache"
-import { Prisma } from "@prisma/client"
+import { Prisma } from '@/lib/generated/prisma'
 
 // Sign in the user with credentials
 export async function signInWithCredentials(

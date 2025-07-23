@@ -7,7 +7,7 @@ import { revalidatePath } from 'next/cache'
 import { z } from 'zod'
 import { insertProductSchema, updateProductSchema } from '../validators'
 import { deleteImages } from './image.actions'
-import { Prisma } from '@prisma/client'
+import { Prisma } from '@/lib/generated/prisma'
 
 // Get latest products
 export const getLatestProducts = async () => {
