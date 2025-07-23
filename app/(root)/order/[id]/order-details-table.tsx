@@ -11,6 +11,7 @@ import { approvePayPalOrder, createPayPalOrder, deliverOrder, updateOrderToPaidC
 import { toast } from 'sonner'
 import { useTransition } from 'react'
 import { Button } from '@/components/ui/button'
+import StripePayment from './stripe-payment'
 
 
 type Props = {
@@ -227,14 +228,14 @@ const OrderDetailsTable = ({ order, paypalClientId, isAdmin, stripeClientSecret 
 									</div>
 								)}
 
-								{/* Stripe Payment
+								Stripe Payment
 								{!isPaid && paymentMethod === 'Stripe' && stripeClientSecret && (
 									<StripePayment
 										priceInCents={Number(order.totalPrice) * 100}
 										orderId={order.id}
 										clientSecret={stripeClientSecret}
 									/>
-								)} */}
+								)}
 
 								{/* Cash On Delivery */}
 								{isAdmin && !isPaid && paymentMethod === 'CashOnDelivery' && <MarkAsPaidButton />}
