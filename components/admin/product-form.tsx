@@ -14,7 +14,7 @@ import { Input } from '../ui/input'
 import { Button } from '../ui/button'
 import { Textarea } from '../ui/textarea'
 import { createProduct, updateProduct } from '@/lib/actions/product.actions'
-import { UploadButton } from '@/lib/uploadthing'
+import { UploadButton, UploadDropzone } from '@/lib/uploadthing'
 import { Card, CardContent } from '../ui/card'
 import Image from 'next/image'
 import { Checkbox } from '../ui/checkbox'
@@ -73,7 +73,7 @@ const ProductForm = ({ type, product, productId }: Props) => {
 		// Delete images to be deleted upon submission
 	}
 
-	const images = form.watch('images')
+	const image = form.watch('images') || []
 	const isFeatured = form.watch('isFeatured')
 	const banner = form.watch('banner')
 
@@ -83,7 +83,7 @@ const ProductForm = ({ type, product, productId }: Props) => {
 		setImagesToBeDeleted(prev => [...prev, imageKey])
 
 		// Filter out removed images and update images form value
-		const filteredImages = images.filter(image => image !== removedImage)
+		const filteredImages = image.filter(image => image !== removedImage)
 		form.setValue('images', filteredImages)
 	}
 
@@ -223,17 +223,17 @@ const ProductForm = ({ type, product, productId }: Props) => {
 								<FormLabel>Images</FormLabel>
 								<Card className='p-0 pt-2'>
 									<CardContent className='space-y-2 min-h-48'>
-										{/* <UploadDropzone
+										 <UploadDropzone
 											endpoint={'imageUploader'}
 											onClientUploadComplete={(res: { url: string }[]) => {
-												form.setValue('images', [...images, res[0].url])
+												form.setValue('images', [...image, res[0].url])
 											}}
 											onUploadError={(error: Error) => {
 												toast.error('Operation failed', { description: `Error! ${error.message}` })
 											}}
-										/> */}
+										/> 
 										<div className='flex-start space-x-2'>
-											{images.map((image: string) => (
+											{image.map((image: string) => (
 												<div
 													key={image}
 													className='border relative rounded-md'
@@ -262,7 +262,7 @@ const ProductForm = ({ type, product, productId }: Props) => {
 													endpoint={'imageUploader'}
 													onClientUploadComplete={(res: { url: string }[]) => {
 														const uploadedImages: string[] = res.map(image => image.url)
-														form.setValue('images', [...images, ...uploadedImages])
+														form.setValue('images', [...image, ...uploadedImages])
 													}}
 													onUploadError={(error: Error) => {
 														toast.error('Operation failed', { description: `Error! ${error.message}` })
