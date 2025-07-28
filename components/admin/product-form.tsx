@@ -305,6 +305,7 @@ const ProductForm = ({ type, product, productId }: Props) => {
 									width={1920}
 									height={680}
 								/>
+								
 							)}
 
 							{isFeatured && !banner && (
@@ -316,7 +317,10 @@ const ProductForm = ({ type, product, productId }: Props) => {
 									onUploadError={(error: Error) => {
 										toast.error('Operation failed', { description: `Error! ${error.message}` })
 									}}
+
+									
 								/>
+								
 							)}
 						</CardContent>
 					</Card>
