@@ -37,9 +37,9 @@ const CredentialsSignInForm = () => {
           <Label htmlFor='email'>Email</Label>
           <Input
             id='email'
-            type='email'
-            required={true}
             name='email'
+            type='email'
+            required
             autoComplete='email'
             defaultValue={signInDefaultValues.email}
           />
@@ -50,7 +50,7 @@ const CredentialsSignInForm = () => {
             id='password'
             name='password'
             type='password'
-            required={true}
+            required
             autoComplete='password'
             defaultValue={signInDefaultValues.password}
           />

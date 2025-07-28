@@ -10,7 +10,7 @@ import {z} from "zod"
 import { PAGE_SIZE } from "../constants"
 import { revalidatePath } from "next/cache"
 import { Prisma } from '@/lib/generated/prisma'
-
+import { getMyCart } from './cart.action';
 // Sign in the user with credentials
 export async function signInWithCredentials(
   prevState: unknown,
@@ -32,9 +32,12 @@ export async function signInWithCredentials(
     return { success: false, message: 'Invalid email or password' };
   }
 }
-// sign out user
+ // Sign user out
 export async function signOutUser() {
-    await signOut()
+  // get current users cart and delete it so it does not persist to next user
+  const currentCart = await getMyCart();
+  await prisma.cart.delete({ where: { id: currentCart?.id } });
+  await signOut();
 }
 // Sign up a new user
 export async function signUpUser(prevState: unknown, formData: FormData) {
