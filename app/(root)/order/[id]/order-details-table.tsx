@@ -213,7 +213,7 @@ const OrderDetailsTable = ({ order, paypalClientId, isAdmin, stripeClientSecret 
 						{(!isPaid || !isDelivered) && (
 							<CardFooter className='mt-8'>
 								{/* PayPal Payment */}
-								{!isPaid && paymentMethod === 'PayPal' && (
+								{!isPaid && paymentMethod  && (
 									<div
 										className='w-full'
 										style={{ colorScheme: 'none' }}
@@ -228,7 +228,6 @@ const OrderDetailsTable = ({ order, paypalClientId, isAdmin, stripeClientSecret 
 									</div>
 								)}
 
-								Stripe Payment
 								{!isPaid && paymentMethod === 'Stripe' && stripeClientSecret && (
 									<StripePayment
 										priceInCents={Number(order.totalPrice) * 100}
