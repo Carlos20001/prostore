@@ -30,6 +30,8 @@ const SignInPage = async (props: {
     return redirect(callbackUrl || '/');
   }
 
+  console.log(callbackUrl)
+
   return (
     <div className='w-full max-w-md mx-auto'>
       <Card>
