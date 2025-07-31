@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { array, z } from 'zod';
 import { formatNumberWithDecimal } from './utils';
 import { PAYMENT_METHODS } from './constants';
 
@@ -20,6 +20,7 @@ export const insertProductSchema = z.object({
   images: z.array(z.string()).min(1, 'Product must have at least one image'),
   isFeatured: z.boolean(),
   banner: z.string().nullable(),
+  size: z.string(),
   price: currency,
 });
 
@@ -57,10 +58,12 @@ export const cartItemSchema = z.object({
   qty: z.number().int().nonnegative('Quantity must be a positive number'),
   image: z.string().min(1, 'Image is required'),
   price: currency,
+  size: z.string().min(1, 'Size is required'),
 });
 
 export const insertCartSchema = z.object({
   items: z.array(cartItemSchema),
+  size: z.string().min(1, 'Size is required'),
   itemsPrice: currency,
   totalPrice: currency,
   shippingPrice: currency,
@@ -110,6 +113,7 @@ export const insertOrderItemSchema = z.object({
   image: z.string(),
   name: z.string(),
   price: currency,
+  size: z.string().min(1),
   qty: z.number(),
 });
 

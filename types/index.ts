@@ -13,6 +13,7 @@ import {
 export type Product = z.infer<typeof insertProductSchema> & {
   id: string;
   rating: string;
+  size: string; 
   numReviews: number;
   createdAt: Date;
 };
@@ -23,6 +24,7 @@ export type ShippingAddress = z.infer<typeof shippingAddressSchema>;
 export type OrderItem = z.infer<typeof insertOrderItemSchema>;
 export type Order = z.infer<typeof insertOrderSchema> & {
   id: string;
+  size: string;
   createdAt: Date;
   isPaid: boolean;
   paidAt: Date | null;

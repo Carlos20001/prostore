@@ -9,6 +9,12 @@ import { getMyCart } from '@/lib/actions/cart.action';
 import ReviewList from './review-list';
 import { auth } from '@/auth';
 import Rating from '@/components/shared/product/rating';
+import SizeSelectorWrapper from '@/components/shared/product/size-selector-wrapper';
+import SizeSelector from '@/components/shared/product/size-selector';
+
+
+ 
+
 
 const ProductDetailsPage = async (props: {
   params: Promise<{ slug: string }>;
@@ -23,6 +29,12 @@ const ProductDetailsPage = async (props: {
 
   const cart = await getMyCart();
 
+   function handleSizeChange(size: string) {
+    console.log('Selected size:', size);
+  }
+
+  
+
   return (
     <>
       <section>
@@ -31,6 +43,7 @@ const ProductDetailsPage = async (props: {
           <div className='col-span-2'>
             <ProductImages images={product.images} />
           </div>
+      
           {/* Details Column */}
           <div className='col-span-2 p-5'>
             <div className='flex flex-col gap-6'>
@@ -38,6 +51,7 @@ const ProductDetailsPage = async (props: {
                 {product.brand} {product.category}
               </p>
               <h1 className='h3-bold'>{product.name}</h1>
+                  <SizeSelectorWrapper />
               <Rating value={Number(product.rating)} />
               <p>{product.numReviews} reviews</p>
               <div className='flex flex-col sm:flex-row sm:items-center gap-3'>
@@ -81,6 +95,7 @@ const ProductDetailsPage = async (props: {
                         price: product.price,
                         qty: 1,
                         image: product.images![0],
+                        size: product.size[0],
                       }}
                     />
                   </div>

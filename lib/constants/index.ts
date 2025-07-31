@@ -38,6 +38,9 @@ export const PAYMENT_METHODS = process.env.PAYMENT_METHODS
   rating: '0',
   numReviews: '0',
   isFeatured: false,
+  size: '',
+  color: '',
+  quantity: 0,
   banner: null,
 };
 

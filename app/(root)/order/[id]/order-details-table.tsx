@@ -213,7 +213,7 @@ const OrderDetailsTable = ({ order, paypalClientId, isAdmin, stripeClientSecret 
 						{(!isPaid || !isDelivered) && (
 							<CardFooter className='mt-8'>
 								{/* PayPal Payment */}
-								{!isPaid && paymentMethod  && (
+								{!isPaid && paymentMethod && (
 									<div
 										className='w-full'
 										style={{ colorScheme: 'none' }}

@@ -2,7 +2,7 @@
 import { shippingAddressSchema, signInFormSchema, signUpFormSchema,paymentMethodSchema, updateUserSchema } from "../validators"
 import {auth, signIn, signOut} from '@/auth'
 import { isRedirectError } from "next/dist/client/components/redirect-error"
-import { hash } from "../encrypt"
+import { hash } from '../encrypt';
 import {prisma} from "@/db/prisma"
 import  {formatError} from "@/lib/utils"
 import { ShippingAddress } from "@/types"
@@ -54,7 +54,7 @@ export async function signUpUser(prevState: unknown, formData: FormData) {
 
     const plainPassword = user.password;
 
-    user.password= await hash(user.password);
+   user.password = await hash(user.password);
 
     await prisma.user.create({
       data: {

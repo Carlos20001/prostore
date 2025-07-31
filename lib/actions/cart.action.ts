@@ -61,6 +61,7 @@ export async function addItemToCart(data: CartItem) {
         const newCart = insertCartSchema.parse({
         userId: userId,
         items: [item],
+        size: item.size,
         sessionCartId: sessionCartId,
         ...calcPrice([item]),
       });
