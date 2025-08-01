@@ -42,6 +42,7 @@ export const getAllProducts = async ({
 	page,
 	category,
 	price,
+	size,
 	rating,
 	sort,
 }: {
@@ -52,6 +53,7 @@ export const getAllProducts = async ({
 	price?: string
 	rating?: string
 	sort?: string
+	size?: string
 }) => {
 	// Query filter
 	const queryFilter: Prisma.ProductWhereInput =
@@ -143,6 +145,7 @@ export const createProduct = async (data: z.infer<typeof insertProductSchema>) =
 
 		revalidatePath('/admin/products')
 		return { success: true, message: 'Product created successfully' }
+		
 	} catch (error) {
 		return { success: false, message: formatError(error) }
 	}

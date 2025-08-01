@@ -47,7 +47,7 @@ const sampleData = {
       price: 85.9,
       brand: 'Brooks Brothers',
       rating: 4.2,
-       size: ['XS','S', 'M', 'L', 'XL'],
+      size: ['XS','S', 'M', 'L', 'XL'],
       numReviews: 8,
       stock: 10,
       isFeatured: true,

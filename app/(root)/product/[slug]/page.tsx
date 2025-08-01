@@ -10,7 +10,7 @@ import ReviewList from './review-list';
 import { auth } from '@/auth';
 import Rating from '@/components/shared/product/rating';
 import SizeSelectorWrapper from '@/components/shared/product/size-selector-wrapper';
-import SizeSelector from '@/components/shared/product/size-selector';
+
 
 
  
@@ -33,7 +33,7 @@ const ProductDetailsPage = async (props: {
     console.log('Selected size:', size);
   }
 
-  
+  console.log(cart)
 
   return (
     <>
