@@ -38,11 +38,11 @@ PurchaseReceiptEmail.PreviewProps = {
     taxPrice: '10',
     shippingPrice: '10',
     itemsPrice: '80',
-    orderitems: sampleData.products.map((x) => ({
+     orderitems: sampleData.products.map((x) => ({
       name: x.name,
       orderId: '123',
       productId: '123',
-      slug: x.slug,
+      size: x.size,
       qty: x.stock,
       image: x.images[0],
       price: x.price.toString(),

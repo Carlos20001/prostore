@@ -42,6 +42,8 @@ const OrderDetailsPage = async (props: {
     client_secret = paymentIntent.client_secret;
   }
 
+  console.log(order)
+
   return (
     <OrderDetailsTable
       order={{

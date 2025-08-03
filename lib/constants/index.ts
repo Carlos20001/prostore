@@ -44,6 +44,8 @@ export const PAYMENT_METHODS = process.env.PAYMENT_METHODS
   banner: null,
 };
 
+export const ALLOWED_SIZES = ['XS', 'S', 'M', 'L', 'XL', 'XXL'] as const;
+
 export const USER_ROLES = process.env.USER_ROLES
   ? process.env.USER_ROLES.split(', ')
   : ['admin', 'user'];

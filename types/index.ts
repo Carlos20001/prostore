@@ -13,7 +13,7 @@ import {
 export type Product = z.infer<typeof insertProductSchema> & {
   id: string;
   rating: string;
-  size: string; 
+  size: string[]; 
   numReviews: number;
   createdAt: Date;
 };

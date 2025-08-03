@@ -1,6 +1,12 @@
-import { array, z } from 'zod';
+import { z } from 'zod';
 import { formatNumberWithDecimal } from './utils';
-import { PAYMENT_METHODS } from './constants';
+import { ALLOWED_SIZES, PAYMENT_METHODS } from './constants';
+
+//
+// ----------------------------
+// 🔢 Currency Validator
+// ----------------------------
+//
 
 const currency = z
   .string()
@@ -9,7 +15,26 @@ const currency = z
     'Price must have exactly two decimal places'
   );
 
-// Schema for inserting products
+//
+// ----------------------------
+// 🧵 Size Validators
+// ----------------------------
+//
+
+export const sizeSchema = z.enum(ALLOWED_SIZES, {
+  errorMap: () => ({ message: 'Invalid size' }),
+});
+
+
+//
+// ----------------------------
+// 🛒 Product Schemas
+// ----------------------------
+//
+
+
+
+
 export const insertProductSchema = z.object({
   name: z.string().min(3, 'Name must be at least 3 characters'),
   slug: z.string().min(3, 'Slug must be at least 3 characters'),
@@ -20,7 +45,20 @@ export const insertProductSchema = z.object({
   images: z.array(z.string()).min(1, 'Product must have at least one image'),
   isFeatured: z.boolean(),
   banner: z.string().nullable(),
-  size: z.array(z.string()).min(1, 'At least one size is required'),
+   size: z.preprocess(
+    (val) =>
+      typeof val === 'string'
+        ? val
+            .split(/[, ]+/)
+            .map((s) => s.trim().toUpperCase())
+        : val,
+    z
+      .array(z.enum(ALLOWED_SIZES))
+      .nonempty('At least one size is required.')
+      .refine((sizes) => new Set(sizes).size === sizes.length, {
+        message: 'Sizes must be unique.',
+      })
+  ),
   price: currency,
 });
 
@@ -29,7 +67,12 @@ export const updateProductSchema = insertProductSchema.extend({
   id: z.string().min(1, 'Id is required'),
 });
 
-// Schema for signing users in
+//
+// ----------------------------
+// 👤 Auth Schemas
+// ----------------------------
+//
+
 export const signInFormSchema = z.object({
   email: z.string().email('Invalid email address'),
   password: z.string().min(6, 'Password must be at least 6 characters'),
@@ -50,7 +93,12 @@ export const signUpFormSchema = z
     path: ['confirmPassword'],
   });
 
-// Cart Schemas
+//
+// ----------------------------
+// 🛒 Cart Schemas
+// ----------------------------
+//
+
 export const cartItemSchema = z.object({
   productId: z.string().min(1, 'Product is required'),
   name: z.string().min(1, 'Name is required'),
@@ -58,7 +106,7 @@ export const cartItemSchema = z.object({
   qty: z.number().int().nonnegative('Quantity must be a positive number'),
   image: z.string().min(1, 'Image is required'),
   price: currency,
-  size: z.string().min(1, 'Size is required'),
+  size: sizeSchema,
 });
 
 export const insertCartSchema = z.object({
@@ -72,7 +120,12 @@ export const insertCartSchema = z.object({
   userId: z.string().optional().nullable(),
 });
 
-// Schema for the shipping address
+//
+// ----------------------------
+// 🧾 Order Schemas
+// ----------------------------
+//
+
 export const shippingAddressSchema = z.object({
   fullName: z.string().min(3, 'Name must be at least 3 characters'),
   streetAddress: z.string().min(3, 'Address must be at least 3 characters'),
@@ -97,6 +150,7 @@ export const paymentMethodSchema = z
 export const insertOrderSchema = z.object({
   userId: z.string().min(1, 'User is required'),
   itemsPrice: currency,
+  size: sizeSchema,
   shippingPrice: currency,
   taxPrice: currency,
   totalPrice: currency,
@@ -113,7 +167,7 @@ export const insertOrderItemSchema = z.object({
   image: z.string(),
   name: z.string(),
   price: currency,
-  size: z.string().min(1),
+  size: sizeSchema,
   qty: z.number(),
 });
 
@@ -125,10 +179,15 @@ export const paymentResultSchema = z.object({
   pricePaid: z.string(),
 });
 
-// Schema for updating the user profile
+//
+// ----------------------------
+// 🧍‍♂️ User/Profile Schemas
+// ----------------------------
+//
+
 export const updateProfileSchema = z.object({
-  name: z.string().min(3, 'Name must be at leaast 3 characters'),
-  email: z.string().min(3, 'Email must be at leaast 3 characters'),
+  name: z.string().min(3, 'Name must be at least 3 characters'),
+  email: z.string().min(3, 'Email must be at least 3 characters'),
 });
 
 // Schema to update users
@@ -137,7 +196,12 @@ export const updateUserSchema = updateProfileSchema.extend({
   role: z.string().min(1, 'Role is required'),
 });
 
-// Schema to insert reviews
+//
+// ----------------------------
+// ⭐ Review Schema
+// ----------------------------
+//
+
 export const insertReviewSchema = z.object({
   title: z.string().min(3, 'Title must be at least 3 characters'),
   description: z.string().min(3, 'Description must be at least 3 characters'),
