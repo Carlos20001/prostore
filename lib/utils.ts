@@ -21,21 +21,17 @@ export function formatNumberWithDecimal(num: number): string {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function formatError(error: any) {
   if (error.name === 'ZodError') {
-    // Handle Zod error
     const fieldErrors = Object.keys(error.errors).map(
       (field) => error.errors[field].message
     );
-
     return fieldErrors.join('. ');
   } else if (
     error.name === 'PrismaClientKnownRequestError' &&
     error.code === 'P2002'
   ) {
-    // Handle Prisma error
     const field = error.meta?.target ? error.meta.target[0] : 'Field';
     return `${field.charAt(0).toUpperCase() + field.slice(1)} already exists`;
   } else {
-    // Handle other errors
     return typeof error.message === 'string'
       ? error.message
       : JSON.stringify(error.message);
@@ -59,7 +55,6 @@ const CURRENCY_FORMATTER = new Intl.NumberFormat('en-US', {
   minimumFractionDigits: 2,
 });
 
-// Format currency using the formatter above
 export function formatCurrency(amount: number | string | null) {
   if (typeof amount === 'number') {
     return CURRENCY_FORMATTER.format(amount);
@@ -70,7 +65,6 @@ export function formatCurrency(amount: number | string | null) {
   }
 }
 
-// Format Number
 const NUMBER_FORMATTER = new Intl.NumberFormat('en-US');
 
 export function formatNumber(number: number) {
@@ -85,23 +79,23 @@ export function formatId(id: string) {
 // Format date and times
 export const formatDateTime = (dateString: Date) => {
   const dateTimeOptions: Intl.DateTimeFormatOptions = {
-    month: 'short', // abbreviated month name (e.g., 'Oct')
-    year: 'numeric', // abbreviated month name (e.g., 'Oct')
-    day: 'numeric', // numeric day of the month (e.g., '25')
-    hour: 'numeric', // numeric hour (e.g., '8')
-    minute: 'numeric', // numeric minute (e.g., '30')
-    hour12: true, // use 12-hour clock (true) or 24-hour clock (false)
+    month: 'short',
+    year: 'numeric',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+    hour12: true,
   };
   const dateOptions: Intl.DateTimeFormatOptions = {
-    weekday: 'short', // abbreviated weekday name (e.g., 'Mon')
-    month: 'short', // abbreviated month name (e.g., 'Oct')
-    year: 'numeric', // numeric year (e.g., '2023')
-    day: 'numeric', // numeric day of the month (e.g., '25')
+    weekday: 'short',
+    month: 'short',
+    year: 'numeric',
+    day: 'numeric',
   };
   const timeOptions: Intl.DateTimeFormatOptions = {
-    hour: 'numeric', // numeric hour (e.g., '8')
-    minute: 'numeric', // numeric minute (e.g., '30')
-    hour12: true, // use 12-hour clock (true) or 24-hour clock (false)
+    hour: 'numeric',
+    minute: 'numeric',
+    hour12: true,
   };
   const formattedDateTime: string = new Date(dateString).toLocaleString(
     'en-US',
@@ -133,7 +127,6 @@ export function formUrlQuery({
   value: string | null;
 }) {
   const query = qs.parse(params);
-
   query[key] = value;
 
   return qs.stringifyUrl(
@@ -145,4 +138,53 @@ export function formUrlQuery({
       skipNull: true,
     }
   );
+}
+
+// -------------------------------------------
+// ✅ Size Utilities
+// -------------------------------------------
+
+/**
+ * Default size options (e.g., for clothing products)
+ */
+export const CLOTHING_SIZES = ['XS', 'S', 'M', 'L', 'XL'];
+
+/**
+ * Validate a size string
+ * @param size - Size to validate (e.g., 'M')
+ * @returns boolean
+ */
+export function isValidSize(size: string): boolean {
+  return CLOTHING_SIZES.includes(size.toUpperCase());
+}
+
+/**
+ * Format size to uppercase
+ * @param size - Input size
+ * @returns string
+ */
+export function formatSize(size: string): string {
+  return size.toUpperCase();
+}
+
+/**
+ * Get user-friendly label for size
+ * @param size - Raw size (e.g., 'M')
+ * @returns Label (e.g., 'Medium')
+ */
+export function getSizeLabel(size: string): string {
+  switch (size.toUpperCase()) {
+    case 'XS':
+      return 'Extra Small';
+    case 'S':
+      return 'Small';
+    case 'M':
+      return 'Medium';
+    case 'L':
+      return 'Large';
+    case 'XL':
+      return 'Extra Large';
+    default:
+      return size;
+  }
 }
