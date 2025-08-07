@@ -40,18 +40,22 @@ type Props = {
 
 const ProductForm = ({ type, product, productId }: Props) => {
 	const router = useRouter()
-	const form = useForm<z.infer<typeof insertProductSchema>>({
-		resolver: zodResolver(type === 'Create' ? insertProductSchema : updateProductSchema),
-		defaultValues: product && type === 'Update' ? product : productDefaultValues,
+	const schema = type === 'Create' ? insertProductSchema : updateProductSchema
+	type ProductFormValues = z.infer<typeof schema>
+	const form = useForm<ProductFormValues>({
+		resolver: zodResolver(schema),
+		defaultValues: product && type === 'Update'
+			? { ...product, size: Array.isArray(product.size) ? product.size : [] }
+			: { ...productDefaultValues, size: Array.isArray(productDefaultValues.size) ? productDefaultValues.size : [] } as unknown as ProductFormValues,
 	})
 
 	const [imagesToBeDeleted, setImagesToBeDeleted] = useState<string[]>([])
 
 	//Pre-parse size string into array before Zod validation
-	const onSubmit: SubmitHandler<z.infer<typeof insertProductSchema>> = async values => {
+	const onSubmit: SubmitHandler<ProductFormValues> = async values => {
 		const parsedSizes = (typeof values.size === 'string'
-			? values.size.split(/[, ]+/).map((size: string) => size.trim().toUpperCase())
-			: values.size)
+			? (values.size ?? '').split(/[, ]+/).map((size: string) => size.trim().toUpperCase())
+			: values.size ?? [])
 
 		const validatedValues = {
 			...values,
@@ -93,6 +97,9 @@ const ProductForm = ({ type, product, productId }: Props) => {
 	const image = form.watch('images') || []
 	const isFeatured = form.watch('isFeatured')
 	const banner = form.watch('banner')
+    
+
+
 
 	const handleImageRemove = async (removedImage: string) => {
 		// Add removed image to array of images to be deleted on submit
@@ -210,7 +217,19 @@ const ProductForm = ({ type, product, productId }: Props) => {
 							<FormItem className='w-full'>
 								<FormLabel>Price</FormLabel>
 								<FormControl>
-									<Input placeholder='Enter product price' {...field} />
+									<Input
+										placeholder='Enter product price'
+										{...field}
+										value={
+											typeof field.value === 'string' || typeof field.value === 'number'
+												? field.value
+												: field.value === null || typeof field.value === 'boolean'
+												? ''
+												: Array.isArray(field.value)
+												? field.value.join(', ')
+												: ''
+										}
+									/>
 								</FormControl>
 								<FormMessage />
 							</FormItem>
@@ -224,7 +243,19 @@ const ProductForm = ({ type, product, productId }: Props) => {
 							<FormItem className='w-full'>
 								<FormLabel>Stock</FormLabel>
 								<FormControl>
-									<Input placeholder='Enter product stock' {...field} />
+									<Input
+										placeholder='Enter product stock'
+										{...field}
+										value={
+											typeof field.value === 'string' || typeof field.value === 'number'
+												? field.value
+												: field.value === null || typeof field.value === 'boolean'
+												? ''
+												: Array.isArray(field.value)
+												? field.value.join(', ')
+												: ''
+										}
+									/>
 								</FormControl>
 								<FormMessage />
 							</FormItem>
@@ -293,7 +324,7 @@ const ProductForm = ({ type, product, productId }: Props) => {
 									<FormItem className='flex space-x-1 items-center'>
 										<FormControl>
 											<Checkbox
-												checked={field.value}
+												checked={!!field.value}
 												onCheckedChange={field.onChange}
 											/>
 										</FormControl>
@@ -344,6 +375,7 @@ const ProductForm = ({ type, product, productId }: Props) => {
 									placeholder='Enter product description'
 									className='resize-none'
 									{...field}
+									value={typeof field.value === 'boolean' ? '' : field.value ?? ''}
 								/>
 							</FormControl>
 							<FormMessage />

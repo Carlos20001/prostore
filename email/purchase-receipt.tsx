@@ -40,9 +40,11 @@ PurchaseReceiptEmail.PreviewProps = {
     itemsPrice: '80',
      orderitems: sampleData.products.map((x) => ({
       name: x.name,
-      orderId: '123',
+      slug: x.slug,
       productId: '123',
-      size: x.size,
+      size: Array.isArray(x.size)
+        ? (x.size[0] as "XS" | "S" | "M" | "L" | "XL" | "XXL")
+        : (x.size as "XS" | "S" | "M" | "L" | "XL" | "XXL"), // ensure correct type
       qty: x.stock,
       image: x.images[0],
       price: x.price.toString(),

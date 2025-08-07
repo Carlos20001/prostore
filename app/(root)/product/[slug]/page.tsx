@@ -87,17 +87,18 @@ const ProductDetailsPage = async (props: {
                 {product.stock > 0 && (
                   <div className='flex-center'>
                     <AddToCart
-                      cart={cart}
+                       cart={cart}
                       item={{
-                        productId: product.id,
-                        name: product.name,
-                        slug: product.slug,
-                        price: product.price,
-                        qty: 1,
-                        image: product.images![0],
-                        size: product.size[0],
-                      }}
-                    />
+                      productId: product.id,
+                      name: product.name,
+                      slug: product.slug,
+                      price: product.price,
+                      qty: 1,
+                      image: product.images![0],
+                      size: 'M',
+                                 }}
+                            />
+                  
                   </div>
                 )}
               </CardContent>

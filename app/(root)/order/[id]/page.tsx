@@ -47,6 +47,10 @@ const OrderDetailsPage = async (props: {
       order={{
         ...order,
         shippingAddress: order.shippingAddress as ShippingAddress,
+        orderitems: order.orderitems.map((item: any) => ({
+          ...item,
+          size: Array.isArray(item.size) ? item.size[0] : item.size,
+        })),
       }}
       stripeClientSecret={client_secret}
       paypalClientId={process.env.PAYPAL_CLIENT_ID || 'sb'}

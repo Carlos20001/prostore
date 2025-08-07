@@ -105,13 +105,12 @@ export const cartItemSchema = z.object({
   slug: z.string().min(1, 'Slug is required'),
   qty: z.number().int().nonnegative('Quantity must be a positive number'),
   image: z.string().min(1, 'Image is required'),
+  size: z.enum(["XS", "S", "M", "L", "XL", "XXL"]),
   price: currency,
-  size: sizeSchema,
 });
 
 export const insertCartSchema = z.object({
   items: z.array(cartItemSchema),
-  size: z.string().min(1, 'Size is required'),
   itemsPrice: currency,
   totalPrice: currency,
   shippingPrice: currency,
@@ -150,7 +149,6 @@ export const paymentMethodSchema = z
 export const insertOrderSchema = z.object({
   userId: z.string().min(1, 'User is required'),
   itemsPrice: currency,
-  size: sizeSchema,
   shippingPrice: currency,
   taxPrice: currency,
   totalPrice: currency,
@@ -167,7 +165,7 @@ export const insertOrderItemSchema = z.object({
   image: z.string(),
   name: z.string(),
   price: currency,
-  size: sizeSchema,
+  size: sizeSchema, // ✅ Correct here
   qty: z.number(),
 });
 
