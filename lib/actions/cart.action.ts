@@ -17,7 +17,7 @@ const calcPrice = (items: CartItem[]) => {
     shippingPrice = round2(itemsPrice > 100 ? 0 : 10),
     taxPrice = round2(0.15 * itemsPrice),
     totalPrice = round2(itemsPrice + taxPrice + shippingPrice);
-
+   
   return {
     itemsPrice: itemsPrice.toFixed(2),
     shippingPrice: shippingPrice.toFixed(2),
@@ -58,8 +58,8 @@ export async function addItemToCart(data: CartItem) {
 
         if (!cart) {
             // Create new cart
-        const newCart = insertCartSchema.parse({
-        userId: userId,
+      const newCart = insertCartSchema.parse({
+        userId: userId, 
         items: [item],
         sessionCartId: sessionCartId,
         ...calcPrice([item]),

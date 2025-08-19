@@ -13,9 +13,6 @@ import SizeSelectorWrapper from '@/components/shared/product/size-selector-wrapp
 
 
 
- 
-
-
 const ProductDetailsPage = async (props: {
   params: Promise<{ slug: string }>;
 }) => {
@@ -51,7 +48,7 @@ const ProductDetailsPage = async (props: {
                 {product.brand} {product.category}
               </p>
               <h1 className='h3-bold'>{product.name}</h1>
-                  <SizeSelectorWrapper />
+              <SizeSelectorWrapper price={''} name={''} slug={''} category={''} images={[]} brand={''} description={''} stock={0} size={[]} isFeatured={false} banner={null} id={''} rating={''} numReviews={0} createdAt={new Date()}   />
               <Rating value={Number(product.rating)} />
               <p>{product.numReviews} reviews</p>
               <div className='flex flex-col sm:flex-row sm:items-center gap-3'>
@@ -87,17 +84,17 @@ const ProductDetailsPage = async (props: {
                 {product.stock > 0 && (
                   <div className='flex-center'>
                     <AddToCart
-                       cart={cart}
+                      cart={cart}
                       item={{
-                      productId: product.id,
-                      name: product.name,
-                      slug: product.slug,
-                      price: product.price,
-                      qty: 1,
-                      image: product.images![0],
-                      size: 'M',
-                                 }}
-                            />
+                        productId: product.id,
+                        name: product.name,
+                        slug: product.slug,
+                        price: product.price,
+                        qty: 1,
+                        image: product.images![0],
+                        size: [product.size?.[0] as "XS" | "S" | "M" | "L" | "XL" | "XXL"],
+                      }}
+                    />
                   
                   </div>
                 )}

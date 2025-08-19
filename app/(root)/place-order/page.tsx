@@ -17,6 +17,9 @@ export const metadata: Metadata = {
     title: 'Place Order',
 }
 
+
+
+
 const PlaceOrderPage = async () => {
   const cart = await getMyCart();
   const session = await auth();
@@ -68,6 +71,7 @@ const PlaceOrderPage = async () => {
                 <TableHeader>
                   <TableRow>
                     <TableHead>Item</TableHead>
+                    <TableHead>Size</TableHead>
                     <TableHead>Quantity</TableHead>
                     <TableHead>Price</TableHead>
                   </TableRow>
@@ -90,9 +94,12 @@ const PlaceOrderPage = async () => {
                         </Link>
                       </TableCell>
                       <TableCell>
-                        <span className='px-2'>{item.qty}</span>
+                        <span className='px-1'>{item.size}</span>
                       </TableCell>
-                      <TableCell className='text-right'>
+                      <TableCell>
+                        <span className='px-1'>{item.qty}</span>
+                      </TableCell>
+                      <TableCell className='text-left'>
                         ${item.price}
                       </TableCell>
                     </TableRow>

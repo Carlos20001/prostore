@@ -36,15 +36,8 @@ export const getProductById = async (productId: string) => {
 }
 
 // Get all products
-export const getAllProducts = async ({
-	query,
-	limit = PAGE_SIZE,
-	page,
-	category,
-	price,
-	size,
-	rating,
-	sort,
+export async function getAllProducts({
+	query, limit = PAGE_SIZE, page, category, price, rating, sort,
 }: {
 	query: string
 	limit?: number
@@ -54,41 +47,38 @@ export const getAllProducts = async ({
 	rating?: string
 	sort?: string
 	size?: string
-}) => {
+}): Promise<{ data: { name: string; slug: string; category: string; brand: string; description: string; stock: number; images: string[]; isFeatured: boolean; banner: string | null; size: string[]; id: string; createdAt: Date; numReviews: number; price: string; rating: string }[]; totalPages: number }> {
 	// Query filter
-	const queryFilter: Prisma.ProductWhereInput =
-		query && query !== 'all'
-			? {
-					name: {
-						contains: query,
-						mode: 'insensitive',
-					} as Prisma.StringFilter,
-			  }
-			: {}
+	const queryFilter: Prisma.ProductWhereInput = query && query !== 'all'
+		? {
+			name: {
+				contains: query,
+				mode: 'insensitive',
+			} as Prisma.StringFilter,
+		}
+		: {}
 
 	// Category filter
 	const categoryFilter = category && category !== 'all' ? { category } : {}
 
 	// Price filter
-	const priceFilter: Prisma.ProductWhereInput =
-		price && price !== 'all'
-			? {
-					price: {
-						gte: Number(price.split('-')[0]),
-						lte: Number(price.split('-')[1]),
-					},
-			  }
-			: {}
+	const priceFilter: Prisma.ProductWhereInput = price && price !== 'all'
+		? {
+			price: {
+				gte: Number(price.split('-')[0]),
+				lte: Number(price.split('-')[1]),
+			},
+		}
+		: {}
 
 	// Rating filter
-	const ratingFilter =
-		rating && rating !== 'all'
-			? {
-					rating: {
-						gte: Number(rating),
-					},
-			  }
-			: {}
+	const ratingFilter = rating && rating !== 'all'
+		? {
+			rating: {
+				gte: Number(rating),
+			},
+		}
+		: {}
 
 	const data = await prisma.product.findMany({
 		where: {
@@ -97,8 +87,7 @@ export const getAllProducts = async ({
 			...priceFilter,
 			...ratingFilter,
 		},
-		orderBy:
-			sort === 'lowest' ? { price: 'asc' } : sort === 'highest' ? { price: 'desc' } : sort === 'rating' ? { rating: 'desc' } : { createdAt: 'desc' },
+		orderBy: sort === 'lowest' ? { price: 'asc' } : sort === 'highest' ? { price: 'desc' } : sort === 'rating' ? { rating: 'desc' } : { createdAt: 'desc' },
 		skip: (page - 1) * limit,
 		take: limit,
 	})

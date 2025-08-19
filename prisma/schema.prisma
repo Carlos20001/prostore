@@ -155,3 +155,6 @@ model Review {
   product            Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
   user               User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
+
+
+

@@ -36,7 +36,7 @@ export const sizeSchema = z.enum(ALLOWED_SIZES, {
 
 
 export const insertProductSchema = z.object({
-  name: z.string().min(3, 'Name must be at least 3 characters'),
+ name: z.string().min(3, 'Name must be at least 3 characters'),
   slug: z.string().min(3, 'Slug must be at least 3 characters'),
   category: z.string().min(3, 'Category must be at least 3 characters'),
   brand: z.string().min(3, 'Brand must be at least 3 characters'),
@@ -45,21 +45,9 @@ export const insertProductSchema = z.object({
   images: z.array(z.string()).min(1, 'Product must have at least one image'),
   isFeatured: z.boolean(),
   banner: z.string().nullable(),
-   size: z.preprocess(
-    (val) =>
-      typeof val === 'string'
-        ? val
-            .split(/[, ]+/)
-            .map((s) => s.trim().toUpperCase())
-        : val,
-    z
-      .array(z.enum(ALLOWED_SIZES))
-      .nonempty('At least one size is required.')
-      .refine((sizes) => new Set(sizes).size === sizes.length, {
-        message: 'Sizes must be unique.',
-      })
-  ),
   price: currency,
+  size: z.array(z.enum(["XS", "S", "M", "L", "XL", "XXL"])),
+
 });
 
 // Schema for updating products
@@ -105,7 +93,7 @@ export const cartItemSchema = z.object({
   slug: z.string().min(1, 'Slug is required'),
   qty: z.number().int().nonnegative('Quantity must be a positive number'),
   image: z.string().min(1, 'Image is required'),
-  size: z.enum(["XS", "S", "M", "L", "XL", "XXL"]),
+  size: z.array(sizeSchema).min(1, 'Size is required'),
   price: currency,
 });
 
@@ -165,7 +153,7 @@ export const insertOrderItemSchema = z.object({
   image: z.string(),
   name: z.string(),
   price: currency,
-  size: sizeSchema, // ✅ Correct here
+  size: sizeSchema, 
   qty: z.number(),
 });
 

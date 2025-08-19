@@ -2,8 +2,9 @@
 
 import { useState } from 'react';
 import SizeSelector, { Size } from './size-selector';
+import { Product } from '@/types';
 
-const SizeSelectorWrapper = () => {
+const SizeSelectorWrapper = (product: Product) => {
   const [selectedSize, setSelectedSize] = useState<Size>('M');
 
   const handleSizeChange = (size: Size) => {

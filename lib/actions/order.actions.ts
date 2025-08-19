@@ -63,7 +63,7 @@ export async function createOrder() {
             price: item.price,
             orderId: insertedOrder.id,
             image: item.image,
-			size: [item.size],
+			size: item.size,
             name: item.name,
           },
         });
