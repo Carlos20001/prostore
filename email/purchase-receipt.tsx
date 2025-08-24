@@ -38,13 +38,12 @@ PurchaseReceiptEmail.PreviewProps = {
     taxPrice: '10',
     shippingPrice: '10',
     itemsPrice: '80',
-     orderitems: sampleData.products.map((x) => ({
+    orderitems: sampleData.products.map((x) => ({
       name: x.name,
-      slug: x.slug,
+      orderId: '123',
       productId: '123',
-      size: Array.isArray(x.size)
-        ? (x.size[0] as "XS" | "S" | "M" | "L" | "XL" | "XXL")
-        : (x.size as "XS" | "S" | "M" | "L" | "XL" | "XXL"), // ensure correct type
+      slug: x.slug,
+      size: 'M',
       qty: x.stock,
       image: x.images[0],
       price: x.price.toString(),
@@ -112,10 +111,10 @@ export default function PurchaseReceiptEmail({ order }: OrderInformationProps) {
                       alt={item.name}
                       className='rounded'
                       src={
-                          item.image.startsWith('/')
-                      ? `${process.env.VERCEL_URL}${item.image}`
-                      : item.image
-           } 
+                        item.image.startsWith('/')
+                          ? `${process.env.NEXT_PUBLIC_SERVER_URL}${item.image}`
+                          : item.image
+                      }
                     />
                   </Column>
                   <Column className='align-top'>

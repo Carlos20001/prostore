@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { formatNumberWithDecimal } from './utils';
-import { ALLOWED_SIZES, PAYMENT_METHODS } from './constants';
+import { PAYMENT_METHODS } from './constants';
 
 //
 // ----------------------------
@@ -21,9 +21,10 @@ const currency = z
 // ----------------------------
 //
 
-export const sizeSchema = z.enum(ALLOWED_SIZES, {
-  errorMap: () => ({ message: 'Invalid size' }),
-});
+export const sizeSchema = z.enum(["XS", "S", "M", "L", "XL", "XXL"]);
+
+
+
 
 
 //
@@ -36,24 +37,25 @@ export const sizeSchema = z.enum(ALLOWED_SIZES, {
 
 
 export const insertProductSchema = z.object({
- name: z.string().min(3, 'Name must be at least 3 characters'),
-  slug: z.string().min(3, 'Slug must be at least 3 characters'),
-  category: z.string().min(3, 'Category must be at least 3 characters'),
-  brand: z.string().min(3, 'Brand must be at least 3 characters'),
-  description: z.string().min(3, 'Description must be at least 3 characters'),
+  slug: z.string().min(1),
+  price: z.string().min(1),
+  name: z.string().min(1),
+  category: z.string().min(1),
+  images: z.array(z.string()).default([]),
+  brand: z.string().min(1),
+  description: z.string().min(1),
   stock: z.coerce.number(),
-  images: z.array(z.string()).min(1, 'Product must have at least one image'),
-  isFeatured: z.boolean(),
-  banner: z.string().nullable(),
-  price: currency,
-  size: z.array(z.enum(["XS", "S", "M", "L", "XL", "XXL"])),
-
+  size: z.string(z.enum(["XS", "S", "M", "L", "XL", "XXL"])).default("M"),
+  isFeatured: z.boolean().default(false),
+  banner: z.string().nullable().default(null),
 });
+
 
 // Schema for updating products
 export const updateProductSchema = insertProductSchema.extend({
-  id: z.string().min(1, 'Id is required'),
+  id: z.string().optional(),
 });
+
 
 //
 // ----------------------------
@@ -93,7 +95,6 @@ export const cartItemSchema = z.object({
   slug: z.string().min(1, 'Slug is required'),
   qty: z.number().int().nonnegative('Quantity must be a positive number'),
   image: z.string().min(1, 'Image is required'),
-  size: z.array(sizeSchema).min(1, 'Size is required'),
   price: currency,
 });
 
@@ -152,8 +153,7 @@ export const insertOrderItemSchema = z.object({
   slug: z.string(),
   image: z.string(),
   name: z.string(),
-  price: currency,
-  size: sizeSchema, 
+  price: currency, 
   qty: z.number(),
 });
 
@@ -199,3 +199,4 @@ export const insertReviewSchema = z.object({
     .min(1, 'Rating must be at least 1')
     .max(5, 'Rating must be at most 5'),
 });
+
