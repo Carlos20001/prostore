@@ -92,7 +92,6 @@ const ProductDetailsPage = async (props: {
                         price: product.price,
                         qty: 1,
                         image: product.images![0],
-                        size: [product.size?.[0] as "XS" | "S" | "M" | "L" | "XL" | "XXL"],
                       }}
                     />
                   

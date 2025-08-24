@@ -45,7 +45,7 @@ export const insertProductSchema = z.object({
   brand: z.string().min(1),
   description: z.string().min(1),
   stock: z.coerce.number(),
-  size: z.string(z.enum(["XS", "S", "M", "L", "XL", "XXL"])).default("M"),
+  size: z.array(sizeSchema).default([]),
   isFeatured: z.boolean().default(false),
   banner: z.string().nullable().default(null),
 });
