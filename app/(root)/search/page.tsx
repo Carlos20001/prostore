@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button'
 import { getAllCategories, getAllProducts } from '@/lib/actions/product.actions'
 import Link from 'next/link'
 
+
 const prices = [
 	{ name: '$1 to $50', value: '1-50' },
 	{ name: '$51 to $100', value: '51-100' },
@@ -11,17 +12,20 @@ const prices = [
 	{ name: '$501 to $1000', value: '501-1000' },
 ]
 
+const size = ['XS', 'S', 'M', 'L', 'XL', 'XXL']
+
 const ratings = [4, 3, 2, 1]
 
 const sortOrders = ['newest', 'lowest', 'highest', 'rating']
 
-export async function generateMetadata({ searchParams }: { searchParams: Promise<{ q: string; price: string; category: string; rating: string }> }) {
-	const { q = 'all', category = 'all', price = 'all', rating = 'all' } = await searchParams
+export async function generateMetadata({ searchParams }: { searchParams: Promise<{ q: string; price: string; category: string; rating: string; size: string[] }> }) {
+	const { q = 'all', category = 'all', price = 'all', rating = 'all', size = 'all' } = await searchParams
 
 	const isQuerySet = q && q !== 'all' && q.trim() !== ''
 	const isCategorySet = category && category !== 'all' && category.trim() !== ''
 	const isPriceSet = price && price !== 'all' && price.trim() !== ''
 	const isRatingSet = rating && rating !== 'all' && rating.trim() !== ''
+	const isSizeSet = size && size !== 'all' && size.length > 0
 
 	if (isQuerySet || isCategorySet || isPriceSet || isRatingSet) {
 		return {
@@ -30,6 +34,7 @@ export async function generateMetadata({ searchParams }: { searchParams: Promise
       ${isCategorySet ? ` Category: ${category}` : ''}
       ${isPriceSet ? ` Price: ${price}` : ''}
       ${isRatingSet ? ` Rating: ${rating}` : ''}
+	  ${isSizeSet ? ` Size: ${size.join(', ')}` : ''}
       
       `,
 		}
@@ -39,6 +44,8 @@ export async function generateMetadata({ searchParams }: { searchParams: Promise
 		}
 	}
 }
+
+
 
 type Props = {
 	searchParams: Promise<{ category?: string; q?: string; price?: string; rating?: string; sort?: string; page?: string }>
@@ -63,6 +70,7 @@ const SearchPage = async ({ searchParams }: Props) => {
 	const products = await getAllProducts({
 		query: q,
 		category,
+		size: size.join(','),
 		price,
 		rating,
 		sort,

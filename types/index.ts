@@ -12,6 +12,7 @@ import {
 
 export type Product = z.infer<typeof insertProductSchema> & {
   id: string;
+   size: ("XS" | "S" | "M" | "L" | "XL" | "XXL")[]; // 👈 strict enum type
   rating: string;
   numReviews: number;
   createdAt: Date;    

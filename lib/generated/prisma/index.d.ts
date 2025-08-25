@@ -60,6 +60,27 @@ export type OrderItem = $Result.DefaultSelection<Prisma.$OrderItemPayload>
 export type Review = $Result.DefaultSelection<Prisma.$ReviewPayload>
 
 /**
+ * Enums
+ */
+export namespace $Enums {
+  export const Size: {
+  XS: 'XS',
+  S: 'S',
+  M: 'M',
+  L: 'L',
+  XL: 'XL',
+  XXL: 'XXL'
+};
+
+export type Size = (typeof Size)[keyof typeof Size]
+
+}
+
+export type Size = $Enums.Size
+
+export const Size: typeof $Enums.Size
+
+/**
  * ##  Prisma Client ʲˢ
  * 
  * Type-safe database client for TypeScript & Node.js
@@ -1707,7 +1728,6 @@ export namespace Prisma {
     description: string | null
     stock: number | null
     price: Decimal | null
-    size: string | null
     rating: Decimal | null
     numReviews: number | null
     isFeatured: boolean | null
@@ -1724,7 +1744,6 @@ export namespace Prisma {
     description: string | null
     stock: number | null
     price: Decimal | null
-    size: string | null
     rating: Decimal | null
     numReviews: number | null
     isFeatured: boolean | null
@@ -1775,7 +1794,6 @@ export namespace Prisma {
     description?: true
     stock?: true
     price?: true
-    size?: true
     rating?: true
     numReviews?: true
     isFeatured?: true
@@ -1792,7 +1810,6 @@ export namespace Prisma {
     description?: true
     stock?: true
     price?: true
-    size?: true
     rating?: true
     numReviews?: true
     isFeatured?: true
@@ -1915,7 +1932,7 @@ export namespace Prisma {
     description: string
     stock: number
     price: Decimal
-    size: string
+    size: $Enums.Size[]
     rating: Decimal
     numReviews: number
     isFeatured: boolean
@@ -2022,7 +2039,7 @@ export namespace Prisma {
       description: string
       stock: number
       price: Prisma.Decimal
-      size: string
+      size: $Enums.Size[]
       rating: Prisma.Decimal
       numReviews: number
       isFeatured: boolean
@@ -2432,7 +2449,7 @@ export namespace Prisma {
     readonly description: FieldRef<"Product", 'String'>
     readonly stock: FieldRef<"Product", 'Int'>
     readonly price: FieldRef<"Product", 'Decimal'>
-    readonly size: FieldRef<"Product", 'String'>
+    readonly size: FieldRef<"Product", 'Size[]'>
     readonly rating: FieldRef<"Product", 'Decimal'>
     readonly numReviews: FieldRef<"Product", 'Int'>
     readonly isFeatured: FieldRef<"Product", 'Boolean'>
@@ -11170,6 +11187,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Size[]'
+   */
+  export type ListEnumSizeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Size[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Size'
+   */
+  export type EnumSizeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Size'>
+    
+
+
+  /**
    * Reference to a field of type 'Boolean'
    */
   export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
@@ -11234,7 +11265,7 @@ export namespace Prisma {
     description?: StringFilter<"Product"> | string
     stock?: IntFilter<"Product"> | number
     price?: DecimalFilter<"Product"> | Decimal | DecimalJsLike | number | string
-    size?: StringFilter<"Product"> | string
+    size?: EnumSizeNullableListFilter<"Product">
     rating?: DecimalFilter<"Product"> | Decimal | DecimalJsLike | number | string
     numReviews?: IntFilter<"Product"> | number
     isFeatured?: BoolFilter<"Product"> | boolean
@@ -11277,7 +11308,7 @@ export namespace Prisma {
     description?: StringFilter<"Product"> | string
     stock?: IntFilter<"Product"> | number
     price?: DecimalFilter<"Product"> | Decimal | DecimalJsLike | number | string
-    size?: StringFilter<"Product"> | string
+    size?: EnumSizeNullableListFilter<"Product">
     rating?: DecimalFilter<"Product"> | Decimal | DecimalJsLike | number | string
     numReviews?: IntFilter<"Product"> | number
     isFeatured?: BoolFilter<"Product"> | boolean
@@ -11323,7 +11354,7 @@ export namespace Prisma {
     description?: StringWithAggregatesFilter<"Product"> | string
     stock?: IntWithAggregatesFilter<"Product"> | number
     price?: DecimalWithAggregatesFilter<"Product"> | Decimal | DecimalJsLike | number | string
-    size?: StringWithAggregatesFilter<"Product"> | string
+    size?: EnumSizeNullableListFilter<"Product">
     rating?: DecimalWithAggregatesFilter<"Product"> | Decimal | DecimalJsLike | number | string
     numReviews?: IntWithAggregatesFilter<"Product"> | number
     isFeatured?: BoolWithAggregatesFilter<"Product"> | boolean
@@ -11962,7 +11993,7 @@ export namespace Prisma {
     description: string
     stock: number
     price?: Decimal | DecimalJsLike | number | string
-    size: string
+    size?: ProductCreatesizeInput | $Enums.Size[]
     rating?: Decimal | DecimalJsLike | number | string
     numReviews?: number
     isFeatured?: boolean
@@ -11982,7 +12013,7 @@ export namespace Prisma {
     description: string
     stock: number
     price?: Decimal | DecimalJsLike | number | string
-    size: string
+    size?: ProductCreatesizeInput | $Enums.Size[]
     rating?: Decimal | DecimalJsLike | number | string
     numReviews?: number
     isFeatured?: boolean
@@ -12002,7 +12033,7 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     stock?: IntFieldUpdateOperationsInput | number
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    size?: StringFieldUpdateOperationsInput | string
+    size?: ProductUpdatesizeInput | $Enums.Size[]
     rating?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     numReviews?: IntFieldUpdateOperationsInput | number
     isFeatured?: BoolFieldUpdateOperationsInput | boolean
@@ -12022,7 +12053,7 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     stock?: IntFieldUpdateOperationsInput | number
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    size?: StringFieldUpdateOperationsInput | string
+    size?: ProductUpdatesizeInput | $Enums.Size[]
     rating?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     numReviews?: IntFieldUpdateOperationsInput | number
     isFeatured?: BoolFieldUpdateOperationsInput | boolean
@@ -12042,7 +12073,7 @@ export namespace Prisma {
     description: string
     stock: number
     price?: Decimal | DecimalJsLike | number | string
-    size: string
+    size?: ProductCreatesizeInput | $Enums.Size[]
     rating?: Decimal | DecimalJsLike | number | string
     numReviews?: number
     isFeatured?: boolean
@@ -12060,7 +12091,7 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     stock?: IntFieldUpdateOperationsInput | number
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    size?: StringFieldUpdateOperationsInput | string
+    size?: ProductUpdatesizeInput | $Enums.Size[]
     rating?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     numReviews?: IntFieldUpdateOperationsInput | number
     isFeatured?: BoolFieldUpdateOperationsInput | boolean
@@ -12078,7 +12109,7 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     stock?: IntFieldUpdateOperationsInput | number
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    size?: StringFieldUpdateOperationsInput | string
+    size?: ProductUpdatesizeInput | $Enums.Size[]
     rating?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     numReviews?: IntFieldUpdateOperationsInput | number
     isFeatured?: BoolFieldUpdateOperationsInput | boolean
@@ -12817,6 +12848,14 @@ export namespace Prisma {
     not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
   }
 
+  export type EnumSizeNullableListFilter<$PrismaModel = never> = {
+    equals?: $Enums.Size[] | ListEnumSizeFieldRefInput<$PrismaModel> | null
+    has?: $Enums.Size | EnumSizeFieldRefInput<$PrismaModel> | null
+    hasEvery?: $Enums.Size[] | ListEnumSizeFieldRefInput<$PrismaModel>
+    hasSome?: $Enums.Size[] | ListEnumSizeFieldRefInput<$PrismaModel>
+    isEmpty?: boolean
+  }
+
   export type BoolFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolFilter<$PrismaModel> | boolean
@@ -12907,7 +12946,6 @@ export namespace Prisma {
     description?: SortOrder
     stock?: SortOrder
     price?: SortOrder
-    size?: SortOrder
     rating?: SortOrder
     numReviews?: SortOrder
     isFeatured?: SortOrder
@@ -12924,7 +12962,6 @@ export namespace Prisma {
     description?: SortOrder
     stock?: SortOrder
     price?: SortOrder
-    size?: SortOrder
     rating?: SortOrder
     numReviews?: SortOrder
     isFeatured?: SortOrder
@@ -13638,6 +13675,10 @@ export namespace Prisma {
     set: string[]
   }
 
+  export type ProductCreatesizeInput = {
+    set: $Enums.Size[]
+  }
+
   export type OrderItemCreateNestedManyWithoutProductInput = {
     create?: XOR<OrderItemCreateWithoutProductInput, OrderItemUncheckedCreateWithoutProductInput> | OrderItemCreateWithoutProductInput[] | OrderItemUncheckedCreateWithoutProductInput[]
     connectOrCreate?: OrderItemCreateOrConnectWithoutProductInput | OrderItemCreateOrConnectWithoutProductInput[]
@@ -13689,6 +13730,11 @@ export namespace Prisma {
     decrement?: Decimal | DecimalJsLike | number | string
     multiply?: Decimal | DecimalJsLike | number | string
     divide?: Decimal | DecimalJsLike | number | string
+  }
+
+  export type ProductUpdatesizeInput = {
+    set?: $Enums.Size[]
+    push?: $Enums.Size | $Enums.Size[]
   }
 
   export type BoolFieldUpdateOperationsInput = {
@@ -15345,7 +15391,7 @@ export namespace Prisma {
     description: string
     stock: number
     price?: Decimal | DecimalJsLike | number | string
-    size: string
+    size?: ProductCreatesizeInput | $Enums.Size[]
     rating?: Decimal | DecimalJsLike | number | string
     numReviews?: number
     isFeatured?: boolean
@@ -15364,7 +15410,7 @@ export namespace Prisma {
     description: string
     stock: number
     price?: Decimal | DecimalJsLike | number | string
-    size: string
+    size?: ProductCreatesizeInput | $Enums.Size[]
     rating?: Decimal | DecimalJsLike | number | string
     numReviews?: number
     isFeatured?: boolean
@@ -15444,7 +15490,7 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     stock?: IntFieldUpdateOperationsInput | number
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    size?: StringFieldUpdateOperationsInput | string
+    size?: ProductUpdatesizeInput | $Enums.Size[]
     rating?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     numReviews?: IntFieldUpdateOperationsInput | number
     isFeatured?: BoolFieldUpdateOperationsInput | boolean
@@ -15463,7 +15509,7 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     stock?: IntFieldUpdateOperationsInput | number
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    size?: StringFieldUpdateOperationsInput | string
+    size?: ProductUpdatesizeInput | $Enums.Size[]
     rating?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     numReviews?: IntFieldUpdateOperationsInput | number
     isFeatured?: BoolFieldUpdateOperationsInput | boolean
@@ -15482,7 +15528,7 @@ export namespace Prisma {
     description: string
     stock: number
     price?: Decimal | DecimalJsLike | number | string
-    size: string
+    size?: ProductCreatesizeInput | $Enums.Size[]
     rating?: Decimal | DecimalJsLike | number | string
     numReviews?: number
     isFeatured?: boolean
@@ -15501,7 +15547,7 @@ export namespace Prisma {
     description: string
     stock: number
     price?: Decimal | DecimalJsLike | number | string
-    size: string
+    size?: ProductCreatesizeInput | $Enums.Size[]
     rating?: Decimal | DecimalJsLike | number | string
     numReviews?: number
     isFeatured?: boolean
@@ -15577,7 +15623,7 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     stock?: IntFieldUpdateOperationsInput | number
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    size?: StringFieldUpdateOperationsInput | string
+    size?: ProductUpdatesizeInput | $Enums.Size[]
     rating?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     numReviews?: IntFieldUpdateOperationsInput | number
     isFeatured?: BoolFieldUpdateOperationsInput | boolean
@@ -15596,7 +15642,7 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     stock?: IntFieldUpdateOperationsInput | number
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    size?: StringFieldUpdateOperationsInput | string
+    size?: ProductUpdatesizeInput | $Enums.Size[]
     rating?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     numReviews?: IntFieldUpdateOperationsInput | number
     isFeatured?: BoolFieldUpdateOperationsInput | boolean

@@ -45,7 +45,7 @@ export const insertProductSchema = z.object({
   brand: z.string().min(1),
   description: z.string().min(1),
   stock: z.coerce.number(),
-  size: z.array(sizeSchema).default([]),
+   size: z.array(sizeSchema).min(1, "At least one size is required"), // 👈 strict sizes
   isFeatured: z.boolean().default(false),
   banner: z.string().nullable().default(null),
 });

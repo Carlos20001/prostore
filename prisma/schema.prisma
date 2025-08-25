@@ -20,7 +20,7 @@ model Product {
   description String
   stock       Int
   price       Decimal     @default(0) @db.Decimal(12, 2)
-  size        String
+  size        Size[]
   rating      Decimal     @default(0) @db.Decimal(3, 2)
   numReviews  Int         @default(0)
   isFeatured  Boolean     @default(false)
@@ -149,3 +149,11 @@ model Review {
 
 
 
+enum Size {
+  XS
+  S
+  M
+  L
+  XL
+  XXL
+}

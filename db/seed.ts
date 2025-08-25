@@ -10,7 +10,24 @@ async function main() {
   await prisma.verificationToken.deleteMany();
   await prisma.user.deleteMany();
 
-  await prisma.product.createMany({ data: sampleData.products });
+  await prisma.product.create({
+  data: {
+    slug: "polo-sporting-stretch-shirt",
+    price: "89.99",
+    name: "Polo Sporting Stretch Shirt",
+    category: "Mens Dress Shirts",
+    images: [
+      "https://utfs.io/f/example1.png",
+      "https://utfs.io/f/example2.png",
+    ],
+    brand: "Polo",
+    description: "Classic Polo style with modern comfort",
+    stock: 500,
+    size: ["S", "M", "L", "XL"], // 👈 must be enum values
+    isFeatured: true,
+    banner: "https://utfs.io/f/example-banner.png",
+  },
+});
   const users = [];
   for (let i = 0; i < sampleData.users.length; i++) {
     users.push({
